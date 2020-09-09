@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 public class ModuleTeleport extends Module{
 
 	public ModuleTeleport() {
-		super("Teleport", ModuleCategory.MOVEMENT, false);
+		super("Teleport", ModuleCategory.TOOLS, false);
 	}
 
 	@Override

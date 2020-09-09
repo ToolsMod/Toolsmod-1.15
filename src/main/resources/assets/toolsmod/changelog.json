@@ -1,0 +1,34 @@
+{
+	"release": "01/22/2008",
+	"changes": [
+		{
+			"feature": "Forge",
+			"desc": "Upgraded from the modern minecraft decompiler to minecraft forge for better version support.",
+			"type": 1
+		},{
+			"feature": "AsEdit",
+			"desc": "Overhauled the armor stand editor",
+			"type": 2
+		},{
+			"feature": "Esp",
+			"desc": "Removed Esp for compatibility reasons.",
+			"type": 0
+		},{
+			"feature": "Overhauled",
+			"desc": "The whole mod has been overhaouled.",
+			"type": 2
+		},{
+			"feature": "Module Shulkerview",
+			"desc": "Add the shulkerview module which lets you display all items inside a shulker by hovering over it.",
+			"type": 1
+		},{
+			"feature": "Settings command",
+			"desc": "Removed because for compatibility reasons.",
+			"type": 0
+		},{
+			"feature": "Module categories",
+			"desc": "Removed old categories and added Tools, Utils and Visuals for better overview.",
+			"type": 2
+		}
+	]
+}

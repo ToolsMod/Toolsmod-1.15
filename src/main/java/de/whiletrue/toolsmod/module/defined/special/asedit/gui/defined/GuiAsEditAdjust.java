@@ -2,9 +2,11 @@ package de.whiletrue.toolsmod.module.defined.special.asedit.gui.defined;
 
 import de.whiletrue.toolsmod.gui.widgets.TmBackgroundWidget;
 import de.whiletrue.toolsmod.gui.widgets.TmItemButton;
+import de.whiletrue.toolsmod.gui.widgets.TmSlider;
 import de.whiletrue.toolsmod.gui.widgets.TmTextWidget;
 import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
 import de.whiletrue.toolsmod.gui.widgets.TmUpdateButton;
+import de.whiletrue.toolsmod.gui.widgets.preset.TmWidget;
 import de.whiletrue.toolsmod.gui.widgets.rounding.GuiNode;
 import de.whiletrue.toolsmod.module.defined.special.asedit.EnumMoveType;
 import de.whiletrue.toolsmod.module.defined.special.asedit.gui.GuiAsEdit;
@@ -90,18 +92,33 @@ public class GuiAsEditAdjust extends GuiAsEdit{
 			
 			// Checks if the mode is the rotation
 			if (this.manager.getMode().equals(EnumMoveType.ROTATION)) {
-				// Adds the rotation field
-				TmTextfield tf = new TmTextfield(x+5, y + 23, w-10, 14, "",txt -> {
-					// Updates the position
-					if (JavaUtil.getInstance().isFloat(txt))
-						this.manager.getSelectedStand().rotationYaw = Float.valueOf(txt);
-				});
-				tf.setText(String.valueOf(this.manager.getSelectedStand().rotationYaw));
-				// Sets the validator
-				tf.setValidator(txt -> txt.matches("\\d*\\.?\\d*"));
 				
-				// Adds the rotation-field
-				this.addWidget(tf);
+				//Editor widget
+				TmWidget editor = null;
+				
+				//Checks which widget should be used
+				if(!this.module.sTextRotation.value) {
+					//Adds the rotation slider
+					editor = new TmSlider(0, 0, 0, 0, 0, 360, this.manager.getSelectedStand().prevRotationYaw, (slider,value)->{
+						this.manager.getSelectedStand().rotationYaw=value;
+						return (Math.round(value*100)/100f)+" °";
+					});
+				}else {
+					// Adds the rotation field
+					editor = new TmTextfield(0,0,0,0, "",txt -> {
+						// Updates the position
+						if (JavaUtil.getInstance().isFloat(txt))
+							this.manager.getSelectedStand().rotationYaw = Float.valueOf(txt);
+					})
+					.setText(String.valueOf(this.manager.getSelectedStand().rotationYaw))//Sets the text
+					.setValidator(txt -> txt.matches("\\d*\\.?\\d*"));//Sets the validator
+				}
+				
+				//Moves the editor
+				editor.move(x+5, y + 23, w-10, 14);
+				
+				// Adds the editor
+				this.addWidget(editor);
 				return;
 			}
 			// For every axis
@@ -120,19 +137,42 @@ public class GuiAsEditAdjust extends GuiAsEdit{
 					return String.valueOf(axis[wrapper]);
 				}).setEnabled(i != this.manager.getAxis()));
 				
-				// Creates the axis-field
-				TmTextfield tf = new TmTextfield(x + 30, y + i * btnDiffH + 23, w - 35, 14, "",txt -> {
-					// Updates the position
-					if (JavaUtil.getInstance().isFloat(txt))
-						this.manager.setGlobalRotation(wrapper, Float.valueOf(txt));
-				});
-				// Sets the field's value
+				// Gets the rotations
 				Vec3d rots = this.manager.getGlobalRotations();
-				tf.setText(String.valueOf(i == 0 ? rots.getX() : i == 1 ? rots.getY() : rots.getZ()));
-				// Sets the validator
-				tf.setValidator(txt -> txt.matches("-?\\d*\\.?\\d*"));
-				// Adds the axis-field
-				this.addWidget(tf);
+				//Gets the current rotation
+				double current = i == 0 ? rots.getX() : i == 1 ? rots.getY() : rots.getZ();
+
+				//Selected editor
+				TmWidget editor = null;
+				
+				//Checks which type should be used
+				if(!this.module.sTextRotation.value && !this.manager.getMode().equals(EnumMoveType.POSITION)) {
+					//%360 for negative values
+					while(current<0)
+						current+=360;
+					
+					//Creates the axis slider
+					editor = new TmSlider(0, 0, 0, 0, 0, 360, (float) current, (slider,value)->{
+						this.manager.setGlobalRotation(wrapper, value);
+						return (Math.round(value*100)/100f)+" °";
+					});
+				}else {
+
+					// Creates the axis-field
+					editor = new TmTextfield(0,0,0,0, "",txt -> {
+						// Updates the position
+						if (JavaUtil.getInstance().isFloat(txt))
+							this.manager.setGlobalRotation(wrapper, Float.valueOf(txt));
+					})
+					.setText(String.valueOf(current))//Sets the text
+					.setValidator(txt -> txt.matches("-?\\d*\\.?\\d*"));//Sets the validator
+				}
+				
+				//Updates the position
+				editor.move(x + 30, y + i * btnDiffH + 23, w - 35, 14);
+				
+				// Adds the editor
+				this.addWidget(editor);
 			}
 		});
 	}
@@ -347,4 +387,13 @@ public class GuiAsEditAdjust extends GuiAsEdit{
 		});
 	}
 	
+	@Override
+	protected void handleTeleport() {
+		super.handleTeleport();
+		
+		//Checks if the position is selected
+		if(this.manager.getMode().equals(EnumMoveType.POSITION))
+			//Updates the gui
+			this.module.guis.update();
+	}
 }

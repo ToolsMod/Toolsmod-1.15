@@ -1,4 +1,4 @@
-package de.whiletrue.toolsmod.gui.config.sub.info;
+package de.whiletrue.toolsmod.gui.config.sub.info.credits;
 
 import javax.annotation.Nullable;
 
@@ -69,7 +69,7 @@ public class CreditView extends ScaleableListItem<Credit>{
 		
 		//Renders the text infos
 		for(int i=0;i<this.splitted.length;i++)
-			GAME.fontRenderer.drawStringWithShadow(this.splitted[i], this.x, this.y+i*10+5, 0xFFffffff);
+			GAME.fontRenderer.drawStringWithShadow(this.splitted[i], this.x, this.y+i*10+12, 0xFFffffff);
 		
 		super.render(mX, mY, ticks, focused);
 	}

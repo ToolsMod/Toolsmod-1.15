@@ -80,7 +80,7 @@ public class ItemUtil {
 	 * @param name the item name
 	 */
 	public Optional<Item> getItemFromName(String registry,String name){
-		return Registry.ITEM.stream().filter(i->i.getTranslationKey().endsWith(registry+"."+name)).findFirst();
+		return Registry.ITEM.stream().filter(i->i.getTranslationKey().endsWith(registry+"."+name.toLowerCase())).findFirst();
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class ItemUtil {
 	 * @param name the block name
 	 */
 	public Optional<Block> getBlockFromName(String registry,String name){
-		return Registry.BLOCK.stream().filter(i->i.getTranslationKey().endsWith(registry+"."+name)).findFirst();
+		return Registry.BLOCK.stream().filter(i->i.getTranslationKey().endsWith(registry+'.'+name)).findFirst();
 	}
 
 	/**

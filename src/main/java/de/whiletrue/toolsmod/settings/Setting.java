@@ -1,32 +1,48 @@
 package de.whiletrue.toolsmod.settings;
 
-import de.whiletrue.toolsmod.gui.widgets.preset.TmWidget;
+import javax.annotation.Nullable;
 
-public abstract class Setting<T,Widget extends TmWidget>{
+import de.whiletrue.toolsmod.module.defined.Module;
+import de.whiletrue.toolsmod.settings.views.SettingView;
 
+public abstract class Setting<T>{
+	
 	//Holds the value (Should be public for access purpose)
 	public T value;
 	
 	//Name of the setting
 	private String name;
 	
+	//If the setting is invisible
+	private boolean invisible;
+	
 	/**
 	 * Sets the name
 	 */
 	@SuppressWarnings("unchecked")
-	public<X extends Setting<T,Widget>> X name(String name){
+	public<X extends Setting<T>> X name(String name){
 		this.name=name;
 		return (X)this;
 	}
-	
+
 	/**
 	 * Sets the default value
 	 */
 	@SuppressWarnings("unchecked")
-	public<X extends Setting<T,Widget>> X standard(T value){
+	public<X extends Setting<T>> X standard(T value){
 		this.value=value;
 		return (X)this;
 	}
+
+	/**
+	 * Makes the setting invisible
+	 */
+	@SuppressWarnings("unchecked")
+	public<X extends Setting<T>> X hidden(){
+		this.invisible=true;
+		return (X)this;
+	}
+	
 	
 	/**
 	 * @param value the value as object
@@ -34,34 +50,23 @@ public abstract class Setting<T,Widget extends TmWidget>{
 	 */
 	public abstract String handleSave();
 	
-	/**
+	/** 
 	 * @param value the value as string
 	 * @return if the parsing was successful
 	 */
 	public abstract boolean handleParse(String value);
 	
 	
-	
 	/**
-	 * Creates the settings widget
-	 * @return the widget for the setting type
-	 */
-	public abstract TmWidget handleCreateWidget();
-	
-	/**
-	 * Calculates the position for the settings widget
+	 * @param mod the module of which the setting is based
 	 * 
-	 * @param x, y, w, h the coordinates where the item view is located
-	 * @return the new position for the widget
+	 * @return the view to edit the setting
 	 */
-	public abstract float[] handleMoveWidget(int x,int y,int w,int h);
+	public abstract<X extends Setting<T>> SettingView<X> getView(@Nullable Module mod);
 	
-	/**
-	 * Updates the widgets value to the current
-	 */
-	public abstract void handleUpdateWidget(Widget widget);
-	
-	
+	public boolean isInvisible() {
+		return this.invisible;
+	}
 	
 	public String getName() {
 		return this.name;

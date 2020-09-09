@@ -1,11 +1,13 @@
 package de.whiletrue.toolsmod.settings.defined;
 
-import de.whiletrue.toolsmod.gui.widgets.TmKeybindButton;
+import de.whiletrue.toolsmod.module.defined.Module;
 import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
+import de.whiletrue.toolsmod.settings.views.SettingViewKeybind;
 import de.whiletrue.toolsmod.util.Keybind;
 import net.minecraftforge.client.settings.KeyModifier;
 
-public class SettingKeybind extends Setting<Keybind, TmKeybindButton>{
+public class SettingKeybind extends Setting<Keybind>{
 
 	@Override
 	public String handleSave() {
@@ -34,26 +36,9 @@ public class SettingKeybind extends Setting<Keybind, TmKeybindButton>{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public TmKeybindButton handleCreateWidget() {
-		return new TmKeybindButton(0, 0, 0, 0, this.value, i->{});
+	public <X extends Setting<Keybind>> SettingView<X> getView(Module mod) {
+		return (SettingView<X>) new SettingViewKeybind(this, mod);
 	}
-
-	@Override
-	public float[] handleMoveWidget(int x, int y, int w, int h) {
-		return new float[] {
-			x+5,
-			y+h-20,
-			80,
-			20
-		};
-	}
-
-	@Override
-	public void handleUpdateWidget(TmKeybindButton widget) {
-		//Updates the display
-		widget.updateDisplay();
-	}
-
-	
 }

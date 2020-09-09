@@ -53,7 +53,7 @@ public class ModuleHeadWriter extends Module {
 	private boolean enabled;
 
 	public ModuleHeadWriter() {
-		super("HeadWriter", ModuleCategory.SPECIAL, false);
+		super("HeadWriter", ModuleCategory.TOOLS, false);
 
 		// Gets the content
 		this.loadedAlphabets = FileUtil.getInstance().loadFromRSCAsJson(LOCATION_HEADS).get()

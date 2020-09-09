@@ -14,7 +14,7 @@ public class ModuleAutoWalk extends Module{
     private KeyBinding key = this.mc.gameSettings.keyBindForward;
 	
 	public ModuleAutoWalk() {
-		super("AutoWalk", ModuleCategory.MOVEMENT, true);
+		super("AutoWalk", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

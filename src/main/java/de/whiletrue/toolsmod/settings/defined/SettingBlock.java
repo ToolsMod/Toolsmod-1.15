@@ -2,12 +2,14 @@ package de.whiletrue.toolsmod.settings.defined;
 
 import java.util.Optional;
 
-import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
+import de.whiletrue.toolsmod.module.defined.Module;
 import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
+import de.whiletrue.toolsmod.settings.views.SettingViewBlock;
 import de.whiletrue.toolsmod.util.classes.ItemUtil;
 import net.minecraft.block.Block;
 
-public class SettingBlock extends Setting<Block,TmTextfield>{
+public class SettingBlock extends Setting<Block>{
 
 	@Override
 	public String handleSave() {
@@ -25,28 +27,11 @@ public class SettingBlock extends Setting<Block,TmTextfield>{
 			return true;
 		}
 		return false;
-		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public TmTextfield handleCreateWidget() {
-		return new TmTextfield()
-		//Only allows doubles or empty values
-		.setValidator(i->i.isEmpty() || this.handleParse(i));
-	}
-
-	@Override
-	public float[] handleMoveWidget(int x, int y, int w, int h) {
-		return new float[]{
-			x+5f,
-			y+h-16f,
-			w-10f,
-			15f
-		};
-	}
-
-	@Override
-	public void handleUpdateWidget(TmTextfield widget) {
-		widget.setText(this.handleSave());
+	public <X extends Setting<Block>> SettingView<X> getView(Module mod) {
+		return (SettingView<X>) new SettingViewBlock(this, mod);
 	}
 }

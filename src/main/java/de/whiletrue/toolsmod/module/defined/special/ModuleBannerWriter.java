@@ -38,7 +38,7 @@ public class ModuleBannerWriter extends Module {
 	private String letterName,backgroundName;
 
 	public ModuleBannerWriter() {
-		super("BannerWriter", ModuleCategory.SPECIAL, false);
+		super("BannerWriter", ModuleCategory.TOOLS, false);
 	}
 
 	@Override

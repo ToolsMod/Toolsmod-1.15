@@ -9,11 +9,12 @@ public class ModuleTimer extends Module{
 
 	//Game speed with the timer enabled
 	private SettingFloat sSpeed = new SettingFloat()
+			.min(0.001f)
 			.standard(5f)
 			.name("speed");
 	
 	public ModuleTimer() {
-		super("Timer",ModuleCategory.PLAYER,false);
+		super("Timer",ModuleCategory.TOOLS,false);
 	}
 	
 	@Override

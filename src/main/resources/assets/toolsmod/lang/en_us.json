@@ -2,6 +2,7 @@
 	//Global settings
 	"toolsmod.global.settings.qaGuiSpeed": "Gui scale speed",
 	"toolsmod.global.settings.qaGuiBind": "Keybind to open the Quick-access gui",
+	"toolsmod.global.settings.checkVersion": "Check on startup for updates",
 
 	//Global messages
 	"toolsmod.global.error.command.syntax": "Please use %c%s %s",
@@ -28,16 +29,15 @@
 	"toolsmod.global.color.red": "Red",
 	"toolsmod.global.color.black": "Black",
 	
+	//Updater-messages
+	"toolsmod.updater.start": "§aUpdate",
+	"toolsmod.updater.available": "§cYour build is outdated",
+	"toolsmod.updater.failed": "§cUpdate-check failed.",
+	
 	//Module-categorys
-	"toolsmod.module.category.combat": "Combat",
-	"toolsmod.module.category.special": "Special",
-	"toolsmod.module.category.movement": "Movement",
-	"toolsmod.module.category.player": "Player",
-	"toolsmod.module.category.world": "World",
-	"toolsmod.module.category.visual": "Visual",
-
-	//Module-registering //TODO: Remove
-	"toolsmod.module.NAME.description": "NAME IS A EXAMPLE MODULE. This should be removed once the mod releases. If it's still there, please remember me.",
+	"toolsmod.module.category.utils": "Utils",
+	"toolsmod.module.category.tools": "Tools",
+	"toolsmod.module.category.visuals": "Visuals",
 
 	//Module - Movement
 	"toolsmod.module.autowalk.description": "Walks automatically.",
@@ -49,7 +49,7 @@
 	"toolsmod.module.sprint.description":"Sprints automatically",
 
 	//Module - Player
-	"toolsmod.module.autofish.description": "Fishes automatically for you. Active, throw rod and just stand afk.",
+	"toolsmod.module.autofish.description": "Fishes automatically for you. Activate, throw rod and just wait.",
 	"toolsmod.module.ghostsight.description": "Fly through the world while the server thing that you are just afk",
 	"toolsmod.module.nofall.description": "Prevents you from taking falldamage.",
 	"toolsmod.module.timer.description": "Control the speed your game runs. Make it faster or slower.",
@@ -77,15 +77,13 @@
 	"toolsmod.settings.timer.speed": "Speed",
 	"toolsmod.settings.asedit.listExtended": "Is the armor stand list extended?",
 	"toolsmod.settings.asedit.guiKeybind": "Which key to press to open the editor?",
+	"toolsmod.settings.asedit.textRotaion": "Should textfields be used at the rotations?",
 	"toolsmod.settings.mapcreator.guiKeybind": "Which key to press to open the gui?",
 	"toolsmod.settings.shulkerview.renderEmpty": "Render empty boxes?",
 	"toolsmod.settings.shulkerview.renderColor": "Render the box color?",
 
 	"toolsmod.settings.back": "Done",
 	"toolsmod.settings.button": "Open settings",
-
-	//Command-registering //TODO: Remove
-	"toolsmod.command.NAME.syntax": "<Argument>",
 
 	"toolsmod.command.toggle.syntax": "<module>",
 	"toolsmod.command.bind.syntax": "<module> <keyname>",
@@ -146,7 +144,7 @@
 	"toolsmod.command.nbt.tree":"=-=-=-=-=-=-=NBT-Tree=-=-=-=-=-=-=%s",
 
 	"toolsmod.command.profile.info": "The previous search has been canceled to start the new one.",
-	"toolsmod.command.profile.error.search":"An error occurred while searching for '%s'.'",
+	"toolsmod.command.profile.error.search":"An error occurred while searching for '%s'.",
 	"toolsmod.command.profile.wrapper":"=-=-=-=-=-=-=-Profile-=-=-=-=-=-=-=",
 	"toolsmod.command.profile.info.name":"Name: %s",
 	"toolsmod.command.profile.info.uuid":"UUID: %s",
@@ -224,7 +222,7 @@
 
 	"toolsmod.modules.asedit.gui.projects.name": "Projects",
 	"toolsmod.modules.asedit.gui.projects.save.success": "Saved the project",
-	"toolsmod.modules.asedit.gui.projects.infotext": "//TODO: Make this an info text",
+	"toolsmod.modules.asedit.gui.projects.infotext": "Here you can save your armor stand's to projects. You can save, load and delete these at any time. Using the #Asedit command you can even save armor-stand-project's, that are already in the world.",
 	"toolsmod.modules.asedit.gui.projects.button.convert": "§bConvert",
 	"toolsmod.modules.asedit.gui.projects.button.save": "§aSave",
 	"toolsmod.modules.asedit.gui.projects.button.unload": "§cUnload",
@@ -255,15 +253,13 @@
 	"toolsmod.modules.asedit.gui.create.name": "Create",
 	"toolsmod.modules.asedit.gui.create.create.error.gm": "You must be in creative mode to create the project.",
 	"toolsmod.modules.asedit.gui.create.create.button": "§aCreate",
-	"toolsmod.modules.asedit.gui.create.info": "//TODO: Insert info here",
+	"toolsmod.modules.asedit.gui.create.info": "You need to be in creative to create the armor stand's in the actual world. The module will give you the first stand. After you placed it, the module will provide you with the next and so on.",
 	
 	"toolsmod.modules.asedit.gui.image.name": "Image",
 	"toolsmod.modules.asedit.gui.image.chooser.info": "Search Image (eg. PNG or JPG)",
-	"toolsmod.modules.asedit.gui.image.button.choose": "§bSearch on Pc",
 	"toolsmod.modules.asedit.gui.image.button.preview": "Preview",
 	"toolsmod.modules.asedit.gui.image.button.load": "Load",
 	"toolsmod.modules.asedit.gui.image.error.resize": "Please use a value between %d and %d.",
-	"toolsmod.modules.asedit.gui.image.error.env": "Your environment doesn't support this feature.",
 	"toolsmod.modules.asedit.gui.image.error.load": "Failed to load the image",
 	"toolsmod.modules.asedit.gui.image.error.image": "No image is loaded",
 	
@@ -328,10 +324,13 @@
 	"toolsmod.gui.config.modsettings.search": "Search setting",
 	"toolsmod.gui.config.modules.allowed": "If the module is allowed (Available)",
 	"toolsmod.gui.config.modules.search": "Search module",
+	"toolsmod.gui.config.modules.settings": "Settings",
 	"toolsmod.gui.config.commands.allowed": "If the command is allowed (Available)",
 	"toolsmod.gui.config.commands.search": "Search command",
 	"toolsmod.gui.config.info.info": "If you have any questions,\nyou can find help on the following media.",
 	"toolsmod.gui.config.info.credits":"Credits",
+	"toolsmod.gui.config.info.changelog":"Changelog",
 	"toolsmod.gui.config.credits.failed":"Failed to load the credits.",
-	"toolsmod.gui.config.credits.done":"Done"
+	"toolsmod.gui.config.credits.done":"Done",
+	"toolsmod.gui.config.changelog.done": "Done"
 }

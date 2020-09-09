@@ -1,12 +1,10 @@
 package de.whiletrue.toolsmod.gui.config.sub;
 
 import de.whiletrue.toolsmod.gui.config.ConfigGui;
-import de.whiletrue.toolsmod.gui.config.sub.settings.SettingView;
 import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
-import de.whiletrue.toolsmod.gui.widgets.preset.TmWidget;
-import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
+import de.whiletrue.toolsmod.gui.widgets.rounding.listscaleable.ScaleableListView;
 import de.whiletrue.toolsmod.mod.Toolsmod;
-import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
 
 public class ConfigGuiModSettings extends ConfigGui{
 
@@ -15,13 +13,10 @@ public class ConfigGuiModSettings extends ConfigGui{
 			.setPresetStringByKey("gui.config.modsettings.search");
 
 	//List with all settings
-	private MultirowListView<Setting<?,? extends TmWidget>, SettingView<?>> settingsList = new MultirowListView<Setting<?,? extends TmWidget>, SettingView<?>>(0,0,0,0)
-			.setListFormatting(0, 15, 1, 30)
-			.setScrollStrength(5)
-			.setBackground(0x50000000)
-			.setItems(
-				Toolsmod.getInstance().getSettingsManager().getSettings().stream().map(i->new SettingView<>(i)).toArray(SettingView[]::new)
-			).setValidator(i->i.isValid(this.searchField.getText()));
+	private ScaleableListView<SettingView<?>> settingsList = new ScaleableListView<SettingView<?>>(0,0,0,0)
+			.setSpaceY(10)
+			.setScrollStrength(20)
+			.setValidator(i->i.isValid(this.searchField.getText()));
 	
 	public ConfigGuiModSettings() {
 		super("gui.config.nav.modsettings");
@@ -34,9 +29,6 @@ public class ConfigGuiModSettings extends ConfigGui{
 		//Adds the listview
 		this.addWidget(this.settingsList);
 		
-		//Updates the list widgets
-		this.settingsList.getViews().forEach(i->i.handleUpdateWidget());
-
 		//Positions the list view
 		this.settingsList.move(
 			this.width/2-100,
@@ -51,6 +43,15 @@ public class ConfigGuiModSettings extends ConfigGui{
 			this.startY+12,
 			180,
 			16
+		);
+		
+		//Appends the settings to the list
+		this.settingsList.setItems(
+			//Gets all settings
+			Toolsmod.getInstance().getSettingsManager().getSettings().stream()
+			.filter(i->!i.isInvisible())//Filters the invisible ones
+			.map(i->i.getView(null))//Map them to their widgets
+			.toArray(SettingView[]::new)//Gets them
 		);
 		
 		//Adds the text search field

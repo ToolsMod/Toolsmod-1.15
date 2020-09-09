@@ -12,7 +12,7 @@ import net.minecraft.util.text.StringTextComponent;
 public class CommandRename extends Command{
 
 	public CommandRename() {
-		super("rename");
+		super("Rename");
 	}
 
 	@Override

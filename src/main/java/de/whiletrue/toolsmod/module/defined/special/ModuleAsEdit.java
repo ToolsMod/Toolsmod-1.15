@@ -42,15 +42,17 @@ import net.minecraftforge.event.world.WorldEvent.Load;
 
 public class ModuleAsEdit extends Module {
 
-	//If the gui's item should be extended
-	public SettingBool sExtendedList = new SettingBool()
-			.name("listExtended")
-			.standard(false);
+	// If the gui's item should be extended
+	public SettingBool sExtendedList = new SettingBool().name("listExtended").standard(false);
 
-	//On which key the gui opens
-	public SettingKeybind sGuiBind = new SettingKeybind()
-			.name("guiKeybind")
-			.standard(new Keybind(GLFW.GLFW_KEY_F,KeyModifier.NONE));
+	// On which key the gui opens
+	public SettingKeybind sGuiBind = new SettingKeybind().name("guiKeybind")
+			.standard(new Keybind(GLFW.GLFW_KEY_F, KeyModifier.NONE));
+
+	//If textfield should be used instead of sliders
+	public SettingBool sTextRotation = new SettingBool()
+			.name("textRotaion")
+			.standard(false);
 	
 	// AsEdit manager
 	private final AsEditManager manager = new AsEditManager();
@@ -70,7 +72,7 @@ public class ModuleAsEdit extends Module {
 			new GuiAsEditProjects(), new GuiAsEditCreate(), new GuiAsEditImage());
 
 	public ModuleAsEdit() {
-		super("AsEdit", ModuleCategory.SPECIAL, false);
+		super("AsEdit", ModuleCategory.TOOLS, false);
 
 		// Creates the project manager
 		this.pjManager = new AsEditProjectManager(this.manager);
@@ -80,7 +82,7 @@ public class ModuleAsEdit extends Module {
 	public void onWorldLoad(Load evt) {
 		this.disable();
 	}
-	
+
 	@Override
 	public void onEnable() {
 		// Resets the manager
@@ -113,7 +115,7 @@ public class ModuleAsEdit extends Module {
 	@Override
 	public boolean onClientPacket(IPacket<IServerPlayNetHandler> packet) {
 		// Checks if the module has stands to place
-		if (this.placing)
+		if (this.placing) {
 			if (packet instanceof CPlayerTryUseItemOnBlockPacket) {
 				CPlayerTryUseItemOnBlockPacket p = (CPlayerTryUseItemOnBlockPacket) packet;
 				// Checks if the module has stands to place
@@ -138,14 +140,13 @@ public class ModuleAsEdit extends Module {
 				this.nextStand = true;
 
 				return true;
-			} else
-
-			if (
-			// Checks if the packet is a use entity packet
-			packet instanceof CUseEntityPacket &&
-			// Checks if the event should be cancelled
-					this.manager.handleUseStand((CUseEntityPacket) packet))
-				return false;
+			}
+		} else if (
+		// Checks if the packet is a use entity packet
+		packet instanceof CUseEntityPacket &&
+		// Checks if the event should be cancelled
+				this.manager.handleUseStand((CUseEntityPacket) packet))
+			return false;
 
 		return true;
 	}
@@ -162,12 +163,10 @@ public class ModuleAsEdit extends Module {
 	}
 
 	@Override
-	public String[] onInformationEvent(char main,char sec) {
+	public String[] onInformationEvent(char main, char sec) {
 		// Check if stands should be placed
 		if (this.placing)
-			return new String[] {
-				String.format("§%cRemaining: §%c%d", main,sec,this.remaningStands.size()+1)
-			};
+			return new String[] { String.format("§%cRemaining: §%c%d", main, sec, this.remaningStands.size() + 1) };
 
 		// Different axis
 		char[] axisStrings = { 'X', 'Y', 'Z' };
@@ -182,18 +181,19 @@ public class ModuleAsEdit extends Module {
 
 		// Render-strings
 		return new String[] {
-				String.format("§%cProject: §%c%s", main,sec,this.pjManager.isLoaded() ? this.pjManager.getLoaded().getName(-1) : "None"),
-				"",
-				String.format("§%cSelected: §%c%s", main, sec, as == null ? "Multiple" : as.getReferenceName()),
-				String.format("§%cAdjusting: §%c%s", main,sec,mode != null ? mode.getName() : "Nothing"),
-				(mode == null ? null : String.format("§%cSpeed: §%c%s",main,sec,speed)),
-				(EnumMoveType.ROTATION.equals(mode) || mode == null ? null : String.format("§%cAxis: §%c%c",main,sec,axisStrings[axis])) };
+				String.format("§%cProject: §%c%s", main, sec,
+						this.pjManager.isLoaded() ? this.pjManager.getLoaded().getName(-1) : "None"),
+				"", String.format("§%cSelected: §%c%s", main, sec, as == null ? "Multiple" : as.getReferenceName()),
+				String.format("§%cAdjusting: §%c%s", main, sec, mode != null ? mode.getName() : "Nothing"),
+				(mode == null ? null : String.format("§%cSpeed: §%c%s", main, sec, speed)),
+				(EnumMoveType.ROTATION.equals(mode) || mode == null ? null
+						: String.format("§%cAxis: §%c%c", main, sec, axisStrings[axis])) };
 	}
 
 	@Override
 	public void onKeyToggled(KeyInputEvent event) {
 		// Checks if the key for opening is pressed
-		if(this.sGuiBind.value.isPressed(event.getKey()))
+		if (this.sGuiBind.value.isKeycodeMatching(event.getKey()))
 			// Checks if stands are needed to be placed
 			if (!this.placing)
 				// Opens the GUI

@@ -8,7 +8,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 public class ModuleNoFall extends Module{
 
 	public ModuleNoFall() {
-		super("Nofall", ModuleCategory.PLAYER, true);
+		super("Nofall", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

@@ -1,10 +1,13 @@
 package de.whiletrue.toolsmod.gui.config.sub.info;
 
 import de.whiletrue.toolsmod.gui.config.ConfigGui;
+import de.whiletrue.toolsmod.gui.config.sub.info.changelog.ConfigGuiInfosChangelog;
+import de.whiletrue.toolsmod.gui.config.sub.info.credits.ConfigGuiInfosCredits;
 import de.whiletrue.toolsmod.gui.widgets.TmButton;
 import de.whiletrue.toolsmod.gui.widgets.TmLinkButton;
 import de.whiletrue.toolsmod.gui.widgets.TmTextWidget;
 import de.whiletrue.toolsmod.gui.widgets.rounding.GuiNode;
+import de.whiletrue.toolsmod.mod.Toolsmod;
 
 public class ConfigGuiInfos extends ConfigGui {
 
@@ -17,7 +20,7 @@ public class ConfigGuiInfos extends ConfigGui {
 	private final String referenceDiscord = "discord.gg/xq2yBqM";
 	private final String referenceGithub = "github.com/ToolsMod";
 	private final String referenceWebsite = "toolsmod.github.io";
-	private final String referenceSupport = "support";
+	private final String referenceSupport = "support.html";
 
 	public ConfigGuiInfos() {
 		super("gui.config.nav.info");
@@ -45,9 +48,17 @@ public class ConfigGuiInfos extends ConfigGui {
 		supportNode.init(spaceX * 2 + requestNode.getWidth(), spaceY + 50);
 
 		// Adds the credits button
-		this.addWidget(new TmButton(this.width / 2 - 40, 50 + spaceY * 2 + h, 80, 20, null,
+		this.addWidget(new TmButton(this.width / 2 - 82, 50 + spaceY * 2 + h, 80, 20, null,
 				i -> this.minecraft.displayGuiScreen(new ConfigGuiInfosCredits()))
 						.setDisplayByKey("gui.config.info.credits"));
+		
+		//Adds the change-log button
+		this.addWidget(
+			new TmButton(this.width/2+2, 50+spaceY*2+h, 80, 20, null,
+			i -> this.minecraft.displayGuiScreen(new ConfigGuiInfosChangelog()))
+			.setDisplayByKey("gui.config.info.changelog")//Sets the text
+			.setEnabled(Toolsmod.getInstance().getUpdater().getChangelog().isLoaded())//Enables the button
+		);
 	}
 
 	private GuiNode getSupportNode() {

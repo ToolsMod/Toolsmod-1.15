@@ -37,8 +37,8 @@ public class TmAnimatedText extends TmTextWidget{
 	 */
 	public void show(int color,String message) {
 		this.setText(message);
+		this.textColor=color&0xffffff;
 		this.start=System.currentTimeMillis()-100;
-		this.color=(0xff<<24)|color;
 	}
 	
 	/**
@@ -76,6 +76,7 @@ public class TmAnimatedText extends TmTextWidget{
 			//Sets the color with the transparency
 			this.color = (((int)(0xff*perc)<<24) | this.textColor);
 		}
+		
 		//Renders the text
 		super.onRender(mouseX, mouseY, p_render_3_,focused);
 	}

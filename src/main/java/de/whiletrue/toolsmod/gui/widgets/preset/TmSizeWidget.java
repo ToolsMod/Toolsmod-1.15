@@ -40,4 +40,20 @@ public abstract class TmSizeWidget extends TmWidget{
 		return Optional.ofNullable(this.hovered?this:null);
 	}
 
+	public TmSizeWidget setX(int x) {
+		this.x = x;
+		return this;
+	}
+	public TmSizeWidget setY(int y) {
+		this.y = y;
+		return this;
+	}
+	public TmSizeWidget setWidth(int width) {
+		this.width = width;
+		return this;
+	}
+	public TmSizeWidget setHeight(int height) {
+		this.height = height;
+		return this;
+	}
 }

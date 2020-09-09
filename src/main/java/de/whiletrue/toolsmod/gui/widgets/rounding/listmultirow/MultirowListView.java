@@ -12,7 +12,7 @@ import de.whiletrue.toolsmod.gui.widgets.rounding.EnumListSlider;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.math.MathHelper;
 
-public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> extends TmSizeWidget{
+public class MultirowListView<ItemView extends MultirowListItem<?>> extends TmSizeWidget{
 
 	//How far the list got scrolled (Pixels)
 	private int scrolled;
@@ -66,7 +66,7 @@ public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> exte
 		this.setListFormatting(0, 5, 1, 30);
 	}
 
-	public MultirowListView<Type, ItemView> setListFormatting(int spaceX,int spaceY,int itemsPerRow,int itemHeight){
+	public MultirowListView<ItemView> setListFormatting(int spaceX,int spaceY,int itemsPerRow,int itemHeight){
 		this.spaceX=spaceX;
 		this.spaceY=spaceY;
 		this.itemsPerRow=itemsPerRow;
@@ -82,19 +82,19 @@ public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> exte
 		this.updateScroll(this.scrolled);
 		return this;
 	}
-	public MultirowListView<Type, ItemView> setScrollStrength(float scrollStrength) {
+	public MultirowListView<ItemView> setScrollStrength(float scrollStrength) {
 		this.scrollStrength = scrollStrength;
 		return this;
 	}
-	public MultirowListView<Type, ItemView> setSlider(EnumListSlider slider) {
+	public MultirowListView<ItemView> setSlider(EnumListSlider slider) {
 		this.slider = slider;
 		return this;
 	}
-	public MultirowListView<Type, ItemView> setBackground(int background) {
+	public MultirowListView<ItemView> setBackground(int background) {
 		this.background=background;
 		return this;
 	}
-	public MultirowListView<Type, ItemView> setItems(ItemView... items){
+	public MultirowListView<ItemView> setItems(@SuppressWarnings("unchecked") ItemView... items){
 		//Adds the views
 		this.views.clear();
 		this.views.addAll(Arrays.asList(items));
@@ -106,11 +106,11 @@ public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> exte
 		this.updateItems();
 		return this;
 	}
-	public MultirowListView<Type, ItemView> setValidator(Function<ItemView, Boolean> validator) {
+	public MultirowListView<ItemView> setValidator(Function<ItemView, Boolean> validator) {
 		this.validator = validator;
 		return this;
 	}
-	public Type addItem(ItemView item){
+	public void addItem(ItemView item){
 		//Adds the item
 		this.views.add(item);
 		//Updates the list indexes
@@ -120,9 +120,8 @@ public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> exte
 		this.calculateListHeight();
 		this.updateScroll(this.scrolled);
 		this.updateItems();
-		return item.item;
 	}
-	public Type remove(ItemView item) {
+	public void remove(ItemView item) {
 		//Removes the item
 		this.views.remove(item);
 		//Updates all list indexes
@@ -132,7 +131,6 @@ public class MultirowListView<Type,ItemView extends MultirowListItem<Type>> exte
 		this.calculateListHeight();
 		this.updateScroll(this.scrolled);
 		this.updateItems();
-		return item.item;
 	}
 	public void updateListIndexes() {
 		//Updates the index

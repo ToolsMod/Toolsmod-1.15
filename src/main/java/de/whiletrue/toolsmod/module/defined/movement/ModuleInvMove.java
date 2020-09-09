@@ -20,7 +20,7 @@ public class ModuleInvMove extends Module{
     };
     
 	public ModuleInvMove() {
-		super("InvMove", ModuleCategory.MOVEMENT, true);
+		super("InvMove", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

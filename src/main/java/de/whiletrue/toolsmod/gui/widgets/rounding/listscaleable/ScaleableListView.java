@@ -13,7 +13,7 @@ import de.whiletrue.toolsmod.gui.widgets.rounding.EnumListSlider;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.math.MathHelper;
 
-public class ScaleableListView<Type, ItemView extends ScaleableListItem<Type>> extends TmSizeWidget {
+public class ScaleableListView<ItemView extends ScaleableListItem<?>> extends TmSizeWidget {
 
 	// Scroller values
 	private int scrolled; // How far the list got scrolled (Pixels)
@@ -61,7 +61,7 @@ public class ScaleableListView<Type, ItemView extends ScaleableListItem<Type>> e
 			AbstractGui.fill(this.x, this.y, this.x + this.width, this.y + this.height, this.background);
 
 		// Clips out the list render
-//		this.renderer.startScissor(this.x, this.y, this.width, this.height);
+		this.renderer.startScissor(this.x, this.y, this.width, this.height);
 		{
 			// Iterates over all visible views
 			for (ItemView iv : this.visibleViews) {
@@ -77,7 +77,7 @@ public class ScaleableListView<Type, ItemView extends ScaleableListItem<Type>> e
 				iv.render(mX, mY, ticks, focused);
 			}
 		}
-//		this.renderer.stopScissor();
+		this.renderer.stopScissor();
 
 		// Checks if the slider is enabled
 		if (this.listHeight > this.height && !this.slider.equals(EnumListSlider.NONE)) {
@@ -223,12 +223,12 @@ public class ScaleableListView<Type, ItemView extends ScaleableListItem<Type>> e
 		this.updateItems();
 	}
 
-	public ScaleableListView<Type, ItemView> setSpaceY(int spaceY) {
+	public ScaleableListView<ItemView> setSpaceY(int spaceY) {
 		this.spaceY = spaceY;
 		return this;
 	}
 
-	public ScaleableListView<Type, ItemView> setItems(@SuppressWarnings("unchecked") ItemView... items) {
+	public ScaleableListView<ItemView> setItems(@SuppressWarnings("unchecked") ItemView... items) {
 		// Sets all items
 		this.views.clear();
 		this.views.addAll(Arrays.asList(items));
@@ -239,8 +239,16 @@ public class ScaleableListView<Type, ItemView extends ScaleableListItem<Type>> e
 		return this;
 	}
 	
-	public ScaleableListView<Type, ItemView> setScrollStrength(float scrollStrength) {
+	public ScaleableListView<ItemView> setScrollStrength(float scrollStrength) {
 		this.scrollStrength = scrollStrength;
+		return this;
+	}
+	public ScaleableListView<ItemView> setBackground(int background) {
+		this.background = background;
+		return this;
+	}
+	public ScaleableListView<ItemView> setValidator(Function<ItemView, Boolean> validator) {
+		this.validator = validator;
 		return this;
 	}
 

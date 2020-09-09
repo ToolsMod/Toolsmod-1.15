@@ -1,4 +1,4 @@
-package de.whiletrue.toolsmod.gui.config.sub.info;
+package de.whiletrue.toolsmod.gui.config.sub.info.credits;
 
 import javax.annotation.Nullable;
 

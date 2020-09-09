@@ -6,6 +6,7 @@ import java.util.Map;
 import de.whiletrue.toolsmod.gui.inject.screen.*;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraftforge.client.event.GuiScreenEvent;
 
 public class GuiInjectionHandler {
 
@@ -22,9 +23,9 @@ public class GuiInjectionHandler {
 	 * Executes before a screen init's
 	 * @param screen the screen
 	 */
-	public static void handlePreInit(Screen screen) {
+	public static void handlePreInit(GuiScreenEvent.InitGuiEvent.Pre evt) {
 		try {			
-			INJECTED_GUIS.get(screen.getClass()).preInit(screen);
+			INJECTED_GUIS.get(evt.getGui().getClass()).preInit(evt);
 		} catch (Exception e) {}
 	}
 	
@@ -32,9 +33,9 @@ public class GuiInjectionHandler {
 	 * Executes after a screen init's
 	 * @param screen
 	 */
-	public static void handlePostInit(Screen screen) {
+	public static void handlePostInit(GuiScreenEvent.InitGuiEvent.Post evt) {
 		try {			
-			INJECTED_GUIS.get(screen.getClass()).postInit(screen);
+			INJECTED_GUIS.get(evt.getGui().getClass()).postInit(evt);
 		} catch (Exception e) {}
 	}
 	

@@ -1,6 +1,5 @@
 package de.whiletrue.toolsmod.gui.config.sub.commands;
 
-import de.whiletrue.toolsmod.command.defined.Command;
 import de.whiletrue.toolsmod.gui.config.ConfigGui;
 import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
 import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
@@ -13,7 +12,7 @@ public class ConfigGuiCommands extends ConfigGui{
 			.setPresetStringByKey("gui.config.commands.search");
 
 	//List with all settings
-	private MultirowListView<Command, CommandView> settingsList = new MultirowListView<Command, CommandView>(0,0,0,0)
+	private MultirowListView<CommandView> settingsList = new MultirowListView<CommandView>(0,0,0,0)
 			.setListFormatting(0, 5, 1, 30)
 			.setScrollStrength(5)
 			.setBackground(0x50000000)

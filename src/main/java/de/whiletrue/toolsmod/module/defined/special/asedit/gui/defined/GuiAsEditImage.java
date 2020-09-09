@@ -1,8 +1,6 @@
 package de.whiletrue.toolsmod.module.defined.special.asedit.gui.defined;
 
 import java.awt.Color;
-import java.awt.GraphicsEnvironment;
-import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -10,20 +8,17 @@ import java.util.function.Predicate;
 
 import de.whiletrue.toolsmod.gui.widgets.TmAnimatedText;
 import de.whiletrue.toolsmod.gui.widgets.TmBackgroundWidget;
-import de.whiletrue.toolsmod.gui.widgets.TmItemButton;
 import de.whiletrue.toolsmod.gui.widgets.TmTextWidget;
 import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
 import de.whiletrue.toolsmod.gui.widgets.TmUpdateButton;
 import de.whiletrue.toolsmod.gui.widgets.rounding.GuiNode;
 import de.whiletrue.toolsmod.module.defined.special.asedit.EditableArmorStand;
 import de.whiletrue.toolsmod.module.defined.special.asedit.gui.GuiAsEdit;
-import de.whiletrue.toolsmod.util.AsyncJFileChooser;
 import de.whiletrue.toolsmod.util.ColorConverter;
 import de.whiletrue.toolsmod.util.TextAlign;
 import de.whiletrue.toolsmod.util.classes.ImageUtil;
 import de.whiletrue.toolsmod.util.classes.JavaUtil;
 import de.whiletrue.toolsmod.util.classes.TextUtil;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.StringTextComponent;
@@ -44,9 +39,6 @@ public class GuiAsEditImage extends GuiAsEdit{
 	private BufferedImage loadedImage;
 	//Image size
 	private int sizeX=80,sizeY=80;
-	
-	//File chooser
-	private AsyncJFileChooser chooser = new AsyncJFileChooser();
 	
 	//Color model and indexes
 	private char[] colorChars = {'4', 'c', '6', 'e', '2', 'a', 'b', '3', '1', '9', 'd', '5', 'f', '7', '8', '0'};
@@ -116,22 +108,9 @@ public class GuiAsEditImage extends GuiAsEdit{
 			this.addWidget(new TmBackgroundWidget(x, y, w, h, 0xa0000000).setOutline(0xff000000,1));
 						
 			//Adds the input field
-			TmTextfield tf = new TmTextfield(x+5, y+h/2-7, w-135, 15, "",null);
+			TmTextfield tf = new TmTextfield(x+5, y+h/2-7, w-90, 15, "",null);
 			tf.setMaxStringLength(Integer.MAX_VALUE);
 			this.addWidget(tf);
-			
-			//Adds the search button
-			this.addWidget(new TmItemButton(x+w-120, y+h/2-10, Items.PAPER, btn->{
-				try {
-					GraphicsEnvironment.getLocalGraphicsEnvironment();
-					if(GraphicsEnvironment.isHeadless())
-						throw new HeadlessException();
-					//Starts the file search
-					this.chooser.call(file->this.loadImage(file.getAbsolutePath()), TextUtil.getInstance().getByKey("modules.asedit.gui.image.chooser.info"));
-				}catch(HeadlessException e) {
-					this.info.showKey(0xFF6A6A,"modules.asedit.gui.image.error.env");
-				}
-			}).setTooltippByKey("modules.asedit.gui.image.button.choose"));
 			
 			//Adds the load button
 			this.addWidget(new TmUpdateButton(x+w-80, y+h/2-10, 70, 20, btn->{
@@ -197,10 +176,10 @@ public class GuiAsEditImage extends GuiAsEdit{
 				if(btn!=null) {
 					//Checks if the image is event loaded
 					if(this.text==null)
-						this.info.showKey(0xFF6A6A,"modules.asedit.gui.image.error.image");
+						this.info.showKey(0xffFF3D3D,"modules.asedit.gui.image.error.image");
 					//Checks if the image is set to be to big
 					else if(this.sizeX>MAX_SIZE || this.sizeX<MIN_SIZE ||this.sizeY>MAX_SIZE || this.sizeY<MIN_SIZE)
-						this.info.showKey(0xFF6A6A,"modules.asedit.gui.image.error.resize",MIN_SIZE,MAX_SIZE);
+						this.info.showKey(0xffFF3D3D,"modules.asedit.gui.image.error.resize",MIN_SIZE,MAX_SIZE);
 					else {
 						//Splits all lines
 						String[] split = this.text.split("\n");
@@ -259,7 +238,7 @@ public class GuiAsEditImage extends GuiAsEdit{
 		//Checks if the img got loaded
 		if(!optImg.isPresent()) {
 			//Displays the error
-			this.info.showKey(0xFF6A6A,"modules.asedit.gui.image.error.load");
+			this.info.showKey(0xFF3D3D,"modules.asedit.gui.image.error.load");
 			return;
 		}
 		

@@ -7,7 +7,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 public class ModuleFastbreak extends Module{
 
 	public ModuleFastbreak() {
-		super("Fastbreak", ModuleCategory.WORLD, true);
+		super("Fastbreak", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public class CommandHelp extends Command{
     private final int CMDS_PER_PAGE = 5;
 	
 	public CommandHelp() {
-		super("help", "man");
+		super("Help", "man");
 	}
 
 	@Override

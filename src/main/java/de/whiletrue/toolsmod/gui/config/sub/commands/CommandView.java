@@ -48,7 +48,7 @@ public class CommandView extends MultirowListItem<Command>{
 	 * @return if the item matches
 	 */
 	public boolean isValid(String text) {
-		return this.item.getName().toLowerCase().startsWith(text.toLowerCase());
+		return this.item.getName().toLowerCase().contains(text.toLowerCase());
 	}
 
 }

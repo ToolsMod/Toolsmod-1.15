@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import de.whiletrue.toolsmod.command.CommandManager;
 import de.whiletrue.toolsmod.module.ModuleManager;
+import de.whiletrue.toolsmod.update.UpdateChecker;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
@@ -28,6 +29,9 @@ public class Toolsmod {
     //Mod command indicator
     public static final char COMMAND_INDICATOR = '#';
     
+    //Mod version
+    public static final float MOD_VERSION = 0.4f;
+    
 	//Mod instance
 	private static Toolsmod instance;
 	
@@ -37,8 +41,11 @@ public class Toolsmod {
 	//Command manager
 	private CommandManager commandManager;
 	
-	//Mod settings
+	//Settings manager
 	private SettingsManager settingsManager;
+	
+	//Updater
+	private UpdateChecker updater;
 	
     public Toolsmod() {
     	//Checks that the mod only loads the on the client side
@@ -69,6 +76,9 @@ public class Toolsmod {
         
         //Loads all settings
         this.moduleManager.load();
+        
+        //Checks the remote version
+        this.updater=new UpdateChecker();
     }
 
     public static Toolsmod getInstance() {
@@ -82,5 +92,8 @@ public class Toolsmod {
 	}
     public SettingsManager getSettingsManager() {
 		return this.settingsManager;
+	}
+    public UpdateChecker getUpdater() {
+		return this.updater;
 	}
 }

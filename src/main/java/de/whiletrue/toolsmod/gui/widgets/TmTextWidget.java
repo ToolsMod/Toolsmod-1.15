@@ -137,4 +137,12 @@ public class TmTextWidget extends TmWidget {
 		irendertypebuffer$impl.finish();
 		this.mc.getItemRenderer().zLevel = 0.0F;
 	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
 }

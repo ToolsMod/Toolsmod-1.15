@@ -5,12 +5,11 @@ import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
 import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
 import de.whiletrue.toolsmod.mod.Toolsmod;
 import de.whiletrue.toolsmod.module.defined.special.ModuleHeadWriter;
-import de.whiletrue.toolsmod.module.defined.special.headwriter.Alphabet;
 
 public class GuiQaHeadWriterType extends GuiQuickAccess {
 
 	// List with all alphabets
-	private MultirowListView<Alphabet, AlphabetItem> list = new MultirowListView<Alphabet, AlphabetItem>(0, 0, 0, 0)
+	private MultirowListView<AlphabetItem> list = new MultirowListView<AlphabetItem>(0, 0, 0, 0)
 			.setListFormatting(5, 5, 3, 20).setScrollStrength(4).setValidator(i -> i.isValid(this.searchBar.getText()));
 
 	// Reference to the module

@@ -46,7 +46,7 @@ public class TmSliderValues<Type> extends TmSlider{
 	 * 
 	 * @param value the value
 	 */
-	public void setStateByValue(Type value){
+	public TmSliderValues<Type> setStateByValue(Type value){
 		//Iterates over every value
 		for(int i=0; i < this.values.length; i++)
 			//Checks if the values if equal
@@ -55,6 +55,8 @@ public class TmSliderValues<Type> extends TmSlider{
 				this.setByValue(i);
 				break;
 			}
+		
+		return this;
 	}
 	
 	/**

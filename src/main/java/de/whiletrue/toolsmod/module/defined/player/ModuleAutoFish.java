@@ -22,7 +22,7 @@ public class ModuleAutoFish extends Module {
 	private Timer timer = new Timer();
 
 	public ModuleAutoFish() {
-		super("AutoFish", ModuleCategory.PLAYER, true);
+		super("AutoFish", ModuleCategory.UTILS, true);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ModuleAutoFish extends Module {
 			// Checks if the current item is a fishing rod
 			if (hand.equals(Items.FISHING_ROD))
 				// Gets the fishing rod back in
-				this.mc.playerController.processRightClick(this.mc.player, this.mc.world, Hand.MAIN_HAND);
+				this.rightClick();
 			return;
 		}
 
@@ -53,7 +53,7 @@ public class ModuleAutoFish extends Module {
 			// Checks if the player is holding a fishing rod
 			if (hand.equals(Items.FISHING_ROD))
 				// Throws the fishing rod back
-				this.mc.playerController.processRightClick(this.mc.player, this.mc.world, Hand.MAIN_HAND);
+				this.rightClick();
 		}
 	}
 
@@ -75,8 +75,17 @@ public class ModuleAutoFish extends Module {
 			// Sets the state to fish now
 			this.state = 1;
 		}
-
 		return true;
+	}
+	
+	/**
+	 * Rightclick's with the current item
+	 */
+	private void rightClick() {
+		//Handles the click action
+		this.mc.playerController.processRightClick(this.mc.player, this.mc.world, Hand.MAIN_HAND);
+		//Swings the hand
+		mc.player.swingArm(Hand.MAIN_HAND);
 	}
 
 }

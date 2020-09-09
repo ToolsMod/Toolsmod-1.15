@@ -10,11 +10,11 @@ import net.minecraft.block.Block;
 public class GuiQaMapcreatorColor extends GuiQuickAccess {
 
 	// Block pallet
-	private MultirowListView<BlockSelection, BlockSelectionItem> blockPallet = new MultirowListView<BlockSelection, BlockSelectionItem>(
+	private MultirowListView<BlockSelectionItem> blockPallet = new MultirowListView<BlockSelectionItem>(
 			0, 0, 0, 0).setListFormatting(5, 5, 3, 20)
 			.setScrollStrength(5);
 	// Selection pallet
-	private MultirowListView<Block, BlockItem> selectPallet = new MultirowListView<Block, BlockItem>(0, 0, 0, 0).setListFormatting(5, 5,
+	private MultirowListView<BlockItem> selectPallet = new MultirowListView<BlockItem>(0, 0, 0, 0).setListFormatting(5, 5,
 			6, 20)
 			.setScrollStrength(5);
 

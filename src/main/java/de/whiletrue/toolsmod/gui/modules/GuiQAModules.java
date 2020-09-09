@@ -8,7 +8,6 @@ import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
 import de.whiletrue.toolsmod.mod.ModSettings;
 import de.whiletrue.toolsmod.mod.Toolsmod;
 import de.whiletrue.toolsmod.module.ModuleCategory;
-import de.whiletrue.toolsmod.module.defined.Module;
 
 public class GuiQAModules extends GuiQuickAccess{
 	
@@ -19,7 +18,7 @@ public class GuiQAModules extends GuiQuickAccess{
 	);
 	
 	//List with the moduels
-	private final MultirowListView<Module, ModuleItem> list = new MultirowListView<Module, ModuleItem>(0,0,0,0)
+	private final MultirowListView<ModuleItem> list = new MultirowListView<ModuleItem>(0,0,0,0)
 			.setListFormatting(5, 5, 4, 20)
 			.setScrollStrength(4);
 	
@@ -57,7 +56,7 @@ public class GuiQAModules extends GuiQuickAccess{
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
 		//Checks if the qa gui key got pressed
-		if(ModSettings.quickAccessKeybind.value.isPressed(keyCode)) {
+		if(ModSettings.quickAccessKeybind.value.isKeycodeMatching(keyCode)) {
 			//Closes the gui
 			this.onClose();
 			return true;

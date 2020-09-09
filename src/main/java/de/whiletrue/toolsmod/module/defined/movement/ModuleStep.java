@@ -17,7 +17,7 @@ public class ModuleStep extends Module{
 			.name("height");
 	
 	public ModuleStep() {
-		super("Step", ModuleCategory.MOVEMENT, true);
+		super("Step", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

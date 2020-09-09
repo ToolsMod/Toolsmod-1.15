@@ -14,7 +14,7 @@ public class ModuleEntityFly extends Module{
 			.standard(.5f);
 	
 	public ModuleEntityFly() {
-		super("EntityFly", ModuleCategory.MOVEMENT, true);
+		super("EntityFly", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

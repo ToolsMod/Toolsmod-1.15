@@ -20,7 +20,7 @@ public class ModuleVelocity extends Module{
 			.standard(0f);
 	
 	public ModuleVelocity() {
-		super("Velocity", ModuleCategory.MOVEMENT, true);
+		super("Velocity", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

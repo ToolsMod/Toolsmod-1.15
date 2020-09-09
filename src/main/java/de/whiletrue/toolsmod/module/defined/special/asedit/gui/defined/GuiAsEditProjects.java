@@ -188,20 +188,15 @@ public class GuiAsEditProjects extends GuiAsEdit{
 		String infoText = TextUtil.getInstance().getByKey("modules.asedit.gui.projects.infotext");
 		
 		//Splits the info into lined segments
-		String splitInfo = TextUtil.getInstance().splitStringOnWidth(infoText, minWidth, maxWidth-20);
+		String[] splitInfo = TextUtil.getInstance().splitStringOnWidth(infoText, minWidth, maxWidth-20).split("\n");
 
-		//Amount of lines
-		int lines = splitInfo.split("\n").length;
-		
-		//Calculates width and height
-		final int height = (int)(lines*10+5);
-		
-		return new GuiNode(maxWidth, height, (x,y)->{			
+		return new GuiNode(maxWidth, (int)(splitInfo.length*10+5), (x,y)->{			
 			//Adds the info text background
-			this.addWidget(new TmBackgroundWidget(x, y, maxWidth, lines*10+5, 0xa0000000).setOutline(0xff000000,1));
+			this.addWidget(new TmBackgroundWidget(x, y, maxWidth, splitInfo.length*10+5, 0xa0000000).setOutline(0xff000000,1));
 			
 			//Adds the info text
-			this.addWidget(new TmTextWidget(x+maxWidth/2, y,splitInfo,0xffffffff));
+			this.addWidget(new TmTextWidget(x+maxWidth/2, y+5,null,0xffffffff)
+					.setText(splitInfo));
 		});
 	}
 	

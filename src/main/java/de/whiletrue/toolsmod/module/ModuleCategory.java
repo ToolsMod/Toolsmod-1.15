@@ -3,12 +3,9 @@ package de.whiletrue.toolsmod.module;
 import de.whiletrue.toolsmod.util.classes.TextUtil;
 
 public enum ModuleCategory {
-    COMBAT("combat"),
-    SPECIAL("special"),
-    MOVEMENT("movement"),
-    PLAYER("player"),
-    WORLD("world"),
-    VISUAL("visual");
+	TOOLS("tools"),
+	UTILS("utils"),
+	VISUALS("visuals");
 
     //Category name
     private String name;

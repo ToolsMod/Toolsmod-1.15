@@ -7,7 +7,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 public class ModuleFullbright extends Module{
 
 	public ModuleFullbright() {
-		super("Fullbright", ModuleCategory.VISUAL, true);
+		super("Fullbright", ModuleCategory.VISUALS, true);
 	}
 
 	@Override

@@ -227,6 +227,9 @@ public class TextUtil {
 		//Appends the last bit
 		full+="\n"+split;
 		
+		if(full.length()>0)
+			full=full.substring(1);
+		
 		//Returns the split text
 		return full;
 	}

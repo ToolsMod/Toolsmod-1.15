@@ -11,7 +11,6 @@ import de.whiletrue.toolsmod.mod.ModSettings;
 import de.whiletrue.toolsmod.util.classes.RenderUtil;
 import de.whiletrue.toolsmod.util.classes.TextUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.StringTextComponent;
 
 public class GuiQuickAccess extends TmScreen {
 

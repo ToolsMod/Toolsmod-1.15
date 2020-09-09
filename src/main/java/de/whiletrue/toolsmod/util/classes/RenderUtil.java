@@ -199,6 +199,22 @@ public class RenderUtil {
     }
     
     /**
+     * Calculates the axis aligned bb form the given positions
+     */
+    public AxisAlignedBB calculateAxisAlign(double x,double y,double z,double sizeX,double sizeY,double sizeZ) {
+    	//Gets the render-position
+    	Vec3d pos = this.mc.worldRenderer.renderDispatcher.getRenderPosition();
+    	//Creates the coordinate
+    	return new AxisAlignedBB(
+    			x-pos.getX(),
+    			y-pos.getY(),
+    			z-pos.getZ(),
+    			x-pos.getX()+sizeX,
+    			y-pos.getY()+sizeY,
+    			z-pos.getZ()+sizeZ);
+    }
+    
+    /**
      * Renders a block-overlay at the given position
      * @param x position on the x axis
      * @param y position on the y axis
@@ -221,11 +237,65 @@ public class RenderUtil {
     	this.renderBlockOverlay(coord);
     }
     
+    public void renderBlockOverlay(double minX,double minY,double minZ,double maxX,double maxY,double maxZ) {
+    	//Gets the render-position
+    	Vec3d pos = this.mc.worldRenderer.renderDispatcher.getRenderPosition();
+    	
+    	//Min values
+    	double iX = Math.min(minX,maxX)-pos.x;
+    	double iY = Math.min(minY,maxY)-pos.y;
+    	double iZ = Math.min(minZ,maxZ)-pos.z;
+    	
+    	//Max values
+    	double aX = Math.max(minX,maxX)-pos.x;
+    	double aY = Math.max(minY,maxY)-pos.y;
+    	double aZ = Math.max(minZ,maxZ)-pos.z;
+    	
+    	Tessellator ts = Tessellator.getInstance();
+        BufferBuilder wr = ts.getBuffer();
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(iX, iY, iZ).endVertex();
+        wr.pos(iX, aY, iZ).endVertex();
+        wr.pos(aX, aY, iZ).endVertex();
+        wr.pos(aX, iY, iZ).endVertex();
+        ts.draw();
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(iX, aY, iZ).endVertex();
+        wr.pos(iX, aY, aZ).endVertex();
+        wr.pos(aX, aY, aZ).endVertex();
+        wr.pos(aX, aY, iZ).endVertex();
+        ts.draw();
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(iX, iY, iZ).endVertex();
+        wr.pos(iX, iY, aZ).endVertex();
+        wr.pos(iX, aY, aZ).endVertex();
+        wr.pos(iX, aY, iZ).endVertex();
+        ts.draw(); 
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(iX, iY, iZ).endVertex();
+        wr.pos(aX, iY, iZ).endVertex();
+        wr.pos(aX, iY, aZ).endVertex();
+        wr.pos(iX, iY, aZ).endVertex();
+        ts.draw();
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(iX, iY, aZ).endVertex();
+        wr.pos(aX, iY, aZ).endVertex();
+        wr.pos(aX, aY, aZ).endVertex();
+        wr.pos(iX, aY, aZ).endVertex();
+        ts.draw();
+        wr.begin(7, DefaultVertexFormats.POSITION);
+        wr.pos(aX, iY, aZ).endVertex();
+        wr.pos(aX, iY, iZ).endVertex();
+        wr.pos(aX, aY, iZ).endVertex();
+        wr.pos(aX, aY, aZ).endVertex();
+        ts.draw();
+    }
+    
     /**
      * Renders a block-overlay at the given axis
      * @param block the axis
      */
-    private void renderBlockOverlay(AxisAlignedBB block) {
+    public void renderBlockOverlay(AxisAlignedBB block) {
     	Tessellator ts = Tessellator.getInstance();
         BufferBuilder wr = ts.getBuffer();
         wr.begin(7, DefaultVertexFormats.POSITION);

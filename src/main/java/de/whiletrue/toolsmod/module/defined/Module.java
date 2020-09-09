@@ -45,7 +45,7 @@ public abstract class Module {
     private boolean avaiableAtStart;
 
     //List with all setting of the module (Will be scanned at runtime)
-    private Set<Setting<?,?>> settings;
+    private Set<Setting<?>> settings;
     
     //Reference to the game instance
     protected Minecraft mc = Minecraft.getInstance();
@@ -77,7 +77,7 @@ public abstract class Module {
 				.map(i->{
 					try {
 						i.setAccessible(true);
-						return (Setting<?,?>)i.get(this);
+						return (Setting<?>)i.get(this);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						e.printStackTrace();
 						return null;
@@ -277,7 +277,7 @@ public abstract class Module {
 		this.allowed = allowed;
 	}
     
-    public Set<Setting<?,?>> getSettings() {
+    public Set<Setting<?>> getSettings() {
 		return this.settings;
 	}
 }

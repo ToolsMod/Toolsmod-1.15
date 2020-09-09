@@ -11,6 +11,7 @@ import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +32,7 @@ public class ModuleShulkerView extends Module{
 	//If the color if the box should render
 	private SettingBool sRenderEmpty = new SettingBool()
 	.name("renderEmpty")
-	.standard(true);
+	.standard(false);
 	
 	//Last hovered shulker
 	private ItemStack lastShulker;
@@ -41,7 +42,7 @@ public class ModuleShulkerView extends Module{
 	private float[] shulkerColor = new float[3];
 	
 	public ModuleShulkerView() {
-		super("ShulkerView", ModuleCategory.VISUAL,true);
+		super("ShulkerView", ModuleCategory.VISUALS,true);
 		//Registers an extra event
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -100,7 +101,8 @@ public class ModuleShulkerView extends Module{
 			return;
 		
 		//Gets the shulker's color
-		int color = ((ShulkerBoxBlock)itm.getBlock()).getColor().getColorValue();
+		DyeColor dye = ((ShulkerBoxBlock)itm.getBlock()).getColor();
+		int color = (dye==null?DyeColor.PURPLE:dye).getColorValue();
 		
 		//Calculates the color values
 		this.shulkerColor[0]=(float)((color&0xff<<16)>>16)/255f;

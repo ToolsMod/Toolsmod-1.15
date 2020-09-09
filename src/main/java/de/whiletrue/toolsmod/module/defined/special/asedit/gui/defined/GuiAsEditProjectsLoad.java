@@ -33,7 +33,7 @@ public class GuiAsEditProjectsLoad extends TmScreen{
 	private TmBackgroundWidget infoBg;
 	
 	//List for all projects
-	private MultirowListView<AsEditProject, ProjectItem> list;
+	private MultirowListView<ProjectItem> list;
 	
 	@Override
 	protected void init() {
@@ -50,7 +50,7 @@ public class GuiAsEditProjectsLoad extends TmScreen{
 		int lX = this.width - rW < 200 ? 10 : (this.width / 2 - rW / 2);
 
 		// Creates the list
-		this.addWidget(this.list=new MultirowListView<AsEditProject, ProjectItem>(lX,lH+23,rW,
+		this.addWidget(this.list=new MultirowListView<ProjectItem>(lX,lH+23,rW,
 				this.height-lH-23)
 				.setListFormatting(0, 5, 1, 40)
 				.setScrollStrength(10)

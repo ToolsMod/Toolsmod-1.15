@@ -16,7 +16,7 @@ public class SettingsManager {
 	private final File settingsFile;
 	
 	//Hold all settings
-	private List<Setting<?,?>> settingsList;
+	private List<Setting<?>> settingsList;
 	
 	public SettingsManager(String settingsFile) {
 		this.settingsFile=new File(Toolsmod.ID + '/' + settingsFile);
@@ -29,7 +29,7 @@ public class SettingsManager {
 		.map(i->{
 			try {
 				i.setAccessible(true);
-				return (Setting<?,?>)i.get(null);
+				return (Setting<?>)i.get(null);
 			} catch (IllegalArgumentException | IllegalAccessException e) {}
 			return null;
 		})
@@ -48,7 +48,7 @@ public class SettingsManager {
 		JsonObject save = new JsonObject();
 
 		// For every setting
-		for (Setting<?,?> set : this.settingsList)
+		for (Setting<?> set : this.settingsList)
 			//Appends the setting
 			save.addProperty(set.getName(), set.handleSave());
 
@@ -66,7 +66,7 @@ public class SettingsManager {
 					.getAsJsonObject();
 
 			//Iterates over all settings
-			for(Setting<?,?> set : this.settingsList)
+			for(Setting<?> set : this.settingsList)
 				//Checks if the setting is contained
 				if(saved.has(set.getName()))
 					//Parses the setting
@@ -78,7 +78,7 @@ public class SettingsManager {
 		}
 	}
 	
-	public List<Setting<?, ?>> getSettings() {
+	public List<Setting<?>> getSettings() {
 		return this.settingsList;
 	}
 }

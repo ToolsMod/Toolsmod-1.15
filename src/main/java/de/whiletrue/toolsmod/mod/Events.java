@@ -11,6 +11,7 @@ import de.whiletrue.toolsmod.gui.modules.GuiQAModules;
 import de.whiletrue.toolsmod.module.defined.Module;
 import de.whiletrue.toolsmod.network.Networkmanager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -91,15 +92,24 @@ public class Events {
 		// Checks if the tablist is rendered
 		boolean tablist = this.mc.gameSettings.keyBindPlayerList.isKeyDown();
 
-		// Executes the event on every module
-		this.mod.getModuleManager().executeEvent(i -> i.onRender2D(tablist, evt));
+		GL11.glPushMatrix();
+		render:{
+			// Executes the event on every module
+			this.mod.getModuleManager().executeEvent(i -> i.onRender2D(tablist, evt));
+			
+			// Checks if the tab-list or the GUI is rendered
+			if (tablist || Minecraft.getInstance().gameSettings.showDebugInfo)
+				break render;
+			
+			// Executes the render event for the module stats
+			this.mod.getModuleManager().handleRender();
+			
+			//Reset
+			RenderSystem.enableBlend();
+			Minecraft.getInstance().getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
+		}
+		GL11.glPopMatrix();
 
-		// Checks if the tab-list or the GUI is rendered
-		if (tablist || Minecraft.getInstance().gameSettings.showDebugInfo)
-			return;
-
-		// Executes the render event for the module stats
-		this.mod.getModuleManager().handleRender();
 	}
 
 	@SubscribeEvent
@@ -108,7 +118,7 @@ public class Events {
 			return;
 
 		//Checks if the quick access gui should open
-		if (ModSettings.quickAccessKeybind.value.isPressed(evt.getKey())) {
+		if (ModSettings.quickAccessKeybind.value.isKeycodeMatching(evt.getKey())) {
 			GuiQAModules.MODULES_GUIS.open();
 			return;
 		}
@@ -190,12 +200,12 @@ public class Events {
 	@SubscribeEvent
 	void onGuiInitPre(GuiScreenEvent.InitGuiEvent.Pre evt) {
 		//Executes the pre init injection
-		GuiInjectionHandler.handlePreInit(evt.getGui());
+		GuiInjectionHandler.handlePreInit(evt);
 	}
 	
 	@SubscribeEvent
 	void onGuiInitPost(GuiScreenEvent.InitGuiEvent.Post evt) {
 		//Executes the post init injection
-		GuiInjectionHandler.handlePostInit(evt.getGui());
+		GuiInjectionHandler.handlePostInit(evt);
 	}
 }

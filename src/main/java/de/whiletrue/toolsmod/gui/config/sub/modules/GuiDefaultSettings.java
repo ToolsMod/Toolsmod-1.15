@@ -3,12 +3,13 @@ package de.whiletrue.toolsmod.gui.config.sub.modules;
 import de.whiletrue.toolsmod.gui.config.ConfigGui;
 import de.whiletrue.toolsmod.gui.modules.GuiQAModules;
 import de.whiletrue.toolsmod.gui.quickaccess.GuiQuickAccess;
-import de.whiletrue.toolsmod.gui.widgets.*;
-import de.whiletrue.toolsmod.gui.widgets.preset.TmWidget;
-import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
+import de.whiletrue.toolsmod.gui.widgets.TmBackgroundWidget;
+import de.whiletrue.toolsmod.gui.widgets.TmButton;
+import de.whiletrue.toolsmod.gui.widgets.TmTextWidget;
+import de.whiletrue.toolsmod.gui.widgets.rounding.listscaleable.ScaleableListView;
 import de.whiletrue.toolsmod.mod.Toolsmod;
 import de.whiletrue.toolsmod.module.defined.Module;
-import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
 import de.whiletrue.toolsmod.util.TextAlign;
 
 public class GuiDefaultSettings extends GuiQuickAccess{
@@ -20,18 +21,13 @@ public class GuiDefaultSettings extends GuiQuickAccess{
 	private Module mod;
 	
 	//List with all settings
-	private MultirowListView<Setting<?,? extends TmWidget>, SettingView<?>> list = new MultirowListView<Setting<?,? extends TmWidget>, SettingView<?>>(0,0,0,0)
-			.setListFormatting(0, 10, 1, 30)
-			.setScrollStrength(5);
+	private ScaleableListView<SettingView<?>> list = new ScaleableListView<SettingView<?>>(0,0,0,0)
+			.setSpaceY(10)
+			.setScrollStrength(20);
 	
 	public GuiDefaultSettings(Module mod) {
-		super("#"+mod.getName(),"#"+mod.getName(),320, 190);
+		super('#'+mod.getName(),"gui.config.modules.settings",320, 190);
 		this.mod=mod;
-		
-		//Adds all items
-		this.list.setItems(
-			mod.getSettings().stream().map(i-> new SettingView<>(mod,i)).toArray(SettingView[]::new)
-		);
 	}
 	
 	@Override
@@ -76,8 +72,14 @@ public class GuiDefaultSettings extends GuiQuickAccess{
 			this.addWidget(this.list);
 		}
 		
-		//Updates all widget-values
-		this.list.getViews().forEach(i->i.handleUpdateWidget());
+		//Sets the items
+		this.list.setItems(
+			//Gets all settings
+			this.mod.getSettings().stream()
+			.filter(i->!i.isInvisible())//Filters the invisible ones
+			.map(i->i.getView(this.mod))//Gets their views
+			.toArray(SettingView<?>[]::new)//Gets them
+		);
 	}
 
 	@Override

@@ -12,25 +12,11 @@ import com.google.gson.JsonObject;
 
 import de.whiletrue.toolsmod.mod.Toolsmod;
 import de.whiletrue.toolsmod.module.defined.Module;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleAutoWalk;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleEntityFly;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleInvMove;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleSprint;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleStep;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleTeleport;
-import de.whiletrue.toolsmod.module.defined.movement.ModuleVelocity;
-import de.whiletrue.toolsmod.module.defined.player.ModuleAutoFish;
-import de.whiletrue.toolsmod.module.defined.player.ModuleGhostsight;
-import de.whiletrue.toolsmod.module.defined.player.ModuleNoFall;
-import de.whiletrue.toolsmod.module.defined.player.ModuleTimer;
-import de.whiletrue.toolsmod.module.defined.special.ModuleAsEdit;
-import de.whiletrue.toolsmod.module.defined.special.ModuleBannerWriter;
-import de.whiletrue.toolsmod.module.defined.special.ModuleHeadWriter;
-import de.whiletrue.toolsmod.module.defined.special.ModuleMapcreator;
-import de.whiletrue.toolsmod.module.defined.visual.ModuleShulkerView;
-import de.whiletrue.toolsmod.module.defined.world.ModuleFastbreak;
-import de.whiletrue.toolsmod.module.defined.world.ModuleFastplace;
-import de.whiletrue.toolsmod.module.defined.visual.ModuleFullbright;
+import de.whiletrue.toolsmod.module.defined.movement.*;
+import de.whiletrue.toolsmod.module.defined.player.*;
+import de.whiletrue.toolsmod.module.defined.special.*;
+import de.whiletrue.toolsmod.module.defined.visual.*;
+import de.whiletrue.toolsmod.module.defined.world.*;
 import de.whiletrue.toolsmod.settings.Setting;
 import de.whiletrue.toolsmod.util.classes.FileUtil;
 import net.minecraft.client.Minecraft;
@@ -113,7 +99,7 @@ public class ModuleManager {
 			JsonObject settings = new JsonObject();
 
 			//Iterates over all settings from the module
-			for(Setting<?,?> set : mod.getSettings())
+			for(Setting<?> set : mod.getSettings())
 				//Appends the value
 				settings.addProperty(set.getName(), set.handleSave());
 			
@@ -164,7 +150,7 @@ public class ModuleManager {
 				JsonObject settings = data.get("settings").getAsJsonObject();
 				
 				//Iterates over all settings from the mod
-				for(Setting<?,?> set : mod.getSettings()) {
+				for(Setting<?> set : mod.getSettings()) {
 					//Checks if a preset exists
 					if(!settings.has(set.getName()))
 						continue;

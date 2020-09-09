@@ -1,18 +1,18 @@
 package de.whiletrue.toolsmod.settings.defined;
 
-import de.whiletrue.toolsmod.gui.widgets.TmSlider;
-import de.whiletrue.toolsmod.gui.widgets.TmTextfield;
-import de.whiletrue.toolsmod.gui.widgets.preset.TmWidget;
+import de.whiletrue.toolsmod.module.defined.Module;
 import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
+import de.whiletrue.toolsmod.settings.views.SettingViewIntegerTextfield;
+import de.whiletrue.toolsmod.settings.views.SettingViewIntegerSlider;
 
-public class SettingInteger extends Setting<Integer,TmWidget>{
+public class SettingInteger extends Setting<Integer>{
 	
-	//If the widget is a slider
-	private boolean isSlider;
-	private String sliderSuffix;
-	
-	//Max an min value of the setting
+	//Max and min value of the setting
 	private Float max,min;
+	
+	//If the widget is a slider and which suffix should be used
+	private String suffix;
 	
 	public SettingInteger max(float value) {
 		this.max=value;
@@ -23,8 +23,7 @@ public class SettingInteger extends Setting<Integer,TmWidget>{
 		return this;
 	}
 	public SettingInteger slider(String suffix) {
-		this.isSlider=true;
-		this.sliderSuffix=suffix;
+		this.suffix=suffix;
 		return this;
 	}
 	
@@ -55,47 +54,21 @@ public class SettingInteger extends Setting<Integer,TmWidget>{
 		}
 	}
 
-	@Override
-	public TmWidget handleCreateWidget() {
-		//If the widget is a slider
-		final boolean slider = this.isSlider && this.min!=null && this.max!=null;
-		
-		//Check which type the widget is
-		if(slider)
-			return new TmSlider(0, 0, 0, 0, this.min, this.max, this.value, (slid,val)->{
-				//Updates the value
-				this.value=(int)val;
-				//Formats the slider
-				return String.valueOf(this.value)+this.sliderSuffix;
-			});
-		else
-			return new TmTextfield()
-			//Only allows floats or empty values
-			.setValidator(i->i.isEmpty() || this.handleParse(i));
+	public Float getMin() {
+		return this.min;
 	}
-
-	@Override
-	public float[] handleMoveWidget(int x, int y, int w, int h) {
-		return new float[]{
-			x+5f,
-			y+10,
-			w-10f,
-			15f
-		};
+	public Float getMax() {
+		return this.max;
 	}
-
-	@Override
-	public void handleUpdateWidget(TmWidget widget) {
-		//Checks if the widget is a slider or a textfield
-		if(widget instanceof TmTextfield)
-			((TmTextfield)widget).setText(this.handleSave());
-		else {
-			//Updates the value and the display
-			((TmSlider)widget)
-			.setByValue(this.value)
-			.updateDisplay();
-		}
+	public String getSuffix() {
+		return this.suffix;
 	}
-
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <X extends Setting<Integer>> SettingView<X> getView(Module mod) {
+		//Checks which widget to use
+		if(this.suffix!=null && this.min!=null && this.max != null)
+			return (SettingView<X>) new SettingViewIntegerSlider(this, mod);
+		return (SettingView<X>) new SettingViewIntegerTextfield(this, mod);
+	}
 }

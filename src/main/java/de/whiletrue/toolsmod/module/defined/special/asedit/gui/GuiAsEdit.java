@@ -10,7 +10,6 @@ import de.whiletrue.toolsmod.gui.widgets.rounding.listmultirow.MultirowListView;
 import de.whiletrue.toolsmod.mod.Toolsmod;
 import de.whiletrue.toolsmod.module.defined.special.ModuleAsEdit;
 import de.whiletrue.toolsmod.module.defined.special.asedit.AsEditManager;
-import de.whiletrue.toolsmod.module.defined.special.asedit.EditableArmorStand;
 import de.whiletrue.toolsmod.module.defined.special.asedit.gui.list.ASEditItem;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.Items;
@@ -19,7 +18,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 public abstract class GuiAsEdit extends TmScreen{
 
 	//List with all stands
-	private static MultirowListView<EditableArmorStand, ASEditItem> LIST = new MultirowListView<EditableArmorStand, ASEditItem>(0,0,0,0)
+	private static MultirowListView<ASEditItem> LIST = new MultirowListView<ASEditItem>(0,0,0,0)
 			.setBackground(0x9f000000)
 			.setScrollStrength(8)
 			.setSlider(EnumListSlider.LEFT);
@@ -154,10 +153,7 @@ public abstract class GuiAsEdit extends TmScreen{
 		}).setTooltippByKey("modules.asedit.gui.global.button.new"));
 		
 		//Adds the teleport button
-		this.addWidget(new TmItemButton(x+btnW*3+space*4,10,Items.ENDER_PEARL, btn->{
-			//Teleports all selected stands to the player
-			this.manager.doTeleportToPlayer();
-		}).setTooltippByKey("modules.asedit.gui.global.button.tp"));
+		this.addWidget(new TmItemButton(x+btnW*3+space*4,10,Items.ENDER_PEARL, btn->this.handleTeleport()).setTooltippByKey("modules.asedit.gui.global.button.tp"));
 	}
 	
 	/**
@@ -224,5 +220,13 @@ public abstract class GuiAsEdit extends TmScreen{
 		
 		//Updates the gui
 		this.module.guis.update();
+	}
+	
+	/**
+	 * Handles the click on the teleport to me button
+	 */
+	protected void handleTeleport() {
+		//Teleports all selected stands to the player
+		this.manager.doTeleportToPlayer();
 	}
 }

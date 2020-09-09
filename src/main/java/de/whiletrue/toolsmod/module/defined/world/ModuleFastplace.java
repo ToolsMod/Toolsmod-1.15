@@ -7,7 +7,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 public class ModuleFastplace extends Module{
 
 	public ModuleFastplace() {
-		super("Fastplace", ModuleCategory.WORLD, true);
+		super("Fastplace", ModuleCategory.UTILS, true);
 	}
 	
 	@Override

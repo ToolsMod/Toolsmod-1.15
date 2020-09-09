@@ -198,7 +198,6 @@ public class EditableArmorStand extends ArmorStandEntity{
 			return;
 		
 		/*
-		 * //TODO: reference in the credits
 		 * Rotation code got from: http://www.java-gaming.org/index.php?topic=31033.0
 		 * */        			
 		double x = this.getPosX() - stand.getPosX();

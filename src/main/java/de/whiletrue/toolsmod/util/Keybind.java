@@ -46,7 +46,7 @@ public class Keybind {
 	 * @param keyCode the keyCode
 	 * @return if the keyCode is pressed and the modifiers match
 	 */
-	public boolean isPressed(int keyCode) {
+	public boolean isKeycodeMatching(int keyCode) {
 		return this.keyCode != 256 && this.keyCode==keyCode && this.modifiers.isActive(null);
 	}
 	

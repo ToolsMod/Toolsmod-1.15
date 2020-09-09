@@ -1,9 +1,11 @@
 package de.whiletrue.toolsmod.settings.defined;
 
-import de.whiletrue.toolsmod.gui.widgets.TmCheckbox;
+import de.whiletrue.toolsmod.module.defined.Module;
 import de.whiletrue.toolsmod.settings.Setting;
+import de.whiletrue.toolsmod.settings.views.SettingView;
+import de.whiletrue.toolsmod.settings.views.SettingViewBool;
 
-public class SettingBool extends Setting<Boolean,TmCheckbox>{
+public class SettingBool extends Setting<Boolean>{
 
 	@Override
 	public String handleSave(){
@@ -20,25 +22,9 @@ public class SettingBool extends Setting<Boolean,TmCheckbox>{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public TmCheckbox handleCreateWidget() {
-		return new TmCheckbox(0,0,false,i->this.value=i);
+	public <X extends Setting<Boolean>> SettingView<X> getView(Module mod) {
+		return (SettingView<X>) new SettingViewBool(this, mod);
 	}
-
-	@Override
-	public float[] handleMoveWidget(int x, int y, int w, int h) {
-		return new float[]{
-			x+5f,
-			y+h-20f,
-			20,
-			20
-		};
-	}
-
-	@Override
-	public void handleUpdateWidget(TmCheckbox widget) {
-		widget.setChecked(this.value);
-	}
-
-	
 }

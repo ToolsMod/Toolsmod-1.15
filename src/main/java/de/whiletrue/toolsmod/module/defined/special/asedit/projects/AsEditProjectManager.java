@@ -93,7 +93,7 @@ public class AsEditProjectManager {
     	//Selects all stands
     	for(EditableArmorStand stand : stands)
     		stand.setSelected(true);
-    	this.manager.handleSelect(-1);
+    	this.manager.handleSelect(stands.length==1?0:-1);
     	
     	return true;
     }

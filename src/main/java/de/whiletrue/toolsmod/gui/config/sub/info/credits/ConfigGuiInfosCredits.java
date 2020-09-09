@@ -1,4 +1,4 @@
-package de.whiletrue.toolsmod.gui.config.sub.info;
+package de.whiletrue.toolsmod.gui.config.sub.info.credits;
 
 import java.util.stream.StreamSupport;
 
@@ -19,7 +19,7 @@ public class ConfigGuiInfosCredits extends TmScreen {
 	private final ResourceLocation creditsFile = new ResourceLocation(Toolsmod.ID, "credits.json");
 
 	// List with the credits
-	private ScaleableListView<Credit, CreditView> list;
+	private ScaleableListView<CreditView> list;
 
 	public ConfigGuiInfosCredits() {
 		try {
@@ -37,7 +37,7 @@ public class ConfigGuiInfosCredits extends TmScreen {
 			// Checks if any credits got loaded
 			if (credits.length > 0)
 				// Creates the list
-				this.list = new ScaleableListView<Credit, CreditView>(0, 0, 0, 0)
+				this.list = new ScaleableListView<CreditView>(0, 0, 0, 0)
 						// Sets the properties
 						.setScrollStrength(5)
 						// Adds the credits

@@ -7,7 +7,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 public class ModuleSprint extends Module{
 
 	public ModuleSprint() {
-		super("Sprint", ModuleCategory.MOVEMENT, true);
+		super("Sprint", ModuleCategory.UTILS, true);
 	}
 
 	@Override

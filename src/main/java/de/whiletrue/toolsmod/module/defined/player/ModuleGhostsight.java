@@ -25,7 +25,7 @@ public class ModuleGhostsight extends Module{
 	private GameType gametype;
 	
 	public ModuleGhostsight() {
-		super("Ghostsight", ModuleCategory.PLAYER, false);
+		super("Ghostsight", ModuleCategory.TOOLS, false);
 	}
 
 	@Override
